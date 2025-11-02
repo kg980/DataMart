@@ -1,6 +1,14 @@
 @CompanySalesAPI_HostAddress = http://localhost:5227
 
-GET {{CompanySalesAPI_HostAddress}}/weatherforecast/
+
+GET {{CompanySalesAPI_HostAddress}}/api/sales/top-customers?count=5
+Accept: application/json
+
+
+###
+GET {{CompanySalesAPI_HostAddress}}/api/sales/top-customers?count=2
 Accept: application/json
 
 ###
+GET {{CompanySalesAPI_HostAddress}}/api/sales/top-customers?
+Accept: application/json

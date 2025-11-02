@@ -1,12 +1,71 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CompanySalesAPI.Models.DTOs;
+using CompanySalesAPI.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CompanySalesAPI.Controllers
 {
-    public class SalesController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class SalesController : ControllerBase
     {
-        public IActionResult Index()
-        {
-            return View();
+
+        private readonly ISalesService _salesService;
+
+        public SalesController(ISalesService salesService)
+        {   // DI
+            _salesService = salesService;
         }
+
+        /*
+        GetTopCustomersBySales
+        - Input: optional filters (e.g., country, date range)
+        - Output DTO: List of top N customers by sales amount
+        - Purpose: Business insight + aggregation + filterin
+         */
+
+
+        [HttpGet("top-customers")]  // FromQuery allows person to specify a count, or it defaults to 10, e.g. 'GET /api/sales/top-customers?count=5'
+        public async Task<ActionResult<List<TopCustomerDto>>> GetTopCustomers([FromQuery] int count = 10)
+        {
+            var result = await _salesService.GetTopCustomersAsync(count);
+            return Ok(result);
+        }
+
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
+
+        //TODO:
+
+        /*
+         GetTotalSales
+        - Input: start_date, end_date
+        - Output DTO: Total revenue, total quantity, average order value
+        - Purpose: Core business metric + aggregation
+         */
+
+        /*
+         GetSalesTrend
+        - Input: interval (daily, weekly, monthly), date range
+        - Output DTO: Time-series of sales amount
+        - Purpose: Trend visualization + grouping
+        */
+
+        /*
+         GetSalesByRegion
+        - Input: country, date range
+        - Output DTO: Sales grouped by country or region
+        - Purpose: Geographic insight + joins with dim_customers
+         */
+
+        /*
+         GetOrderDetails
+        - Input: order_number
+        - Output DTO: Full order breakdown (product, customer, dates, price, quantity)
+        - Purpose: Deep join across all three tables
+         */
+
     }
 }

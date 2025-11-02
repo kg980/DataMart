@@ -1,8 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using CompanySalesAPI.Models.Enums;
+using Microsoft.EntityFrameworkCore;
 
 namespace CompanySalesAPI.Models
 {
+    [Keyless] // Moved to context Model Builder
+    [Table("dim_products", Schema = "gold")]
     public class Product
     {
         public int ProductKey { get; set; }

@@ -1,7 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace CompanySalesAPI.Models
 {
+    //[Keyless] moved to model context builder
+    [Table("fact_sales", Schema = "gold")]
     public class Sale
     {
         //public int Id { get; set; }
