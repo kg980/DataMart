@@ -24,6 +24,7 @@ namespace CompanySalesAPI.Data
         // but perhaps the same Models can be used in another context,
         // so I dont want to map their attributes to column names in the Model itself.
         // However, this looks pretty awful.
+        // for projects with many models probs nicer to see the column mappings in the model actually so you dont have to cross-reference
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -58,6 +59,16 @@ namespace CompanySalesAPI.Data
                     v => v.ToString(),
                     v => Enum.Parse<Gender>(v)
                 );
+
+            // one customer -> many sales mapping (new prop in customer model)
+            modelBuilder.Entity<Customer>()
+                .HasMany(c => c.Sales)
+                .WithOne(s => s.Customer)
+                .HasForeignKey(c => c.CustomerId);
+                //.OnDelete(DeleteBehavior.Cascade); // link sale w/ customer by id and on delete customer, delete their sales too.
+
+
+
 
             // product mappings
             modelBuilder.Entity<Product>().Property(p => p.ProductKey).HasColumnName("product_key");

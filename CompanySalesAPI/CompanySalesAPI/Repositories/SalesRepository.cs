@@ -1,4 +1,5 @@
 ﻿using CompanySalesAPI.Data;
+using CompanySalesAPI.Models;
 using CompanySalesAPI.Models.Helpers;
 using CompanySalesAPI.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ namespace CompanySalesAPI.Repositories
     public class SalesRepository : ISalesRepository
     {
         private readonly DataWarehouseContext _context;
+        private readonly List<Customer> _customers; // save data. Create customer method -> create customer model -> add to this list
 
         public SalesRepository(DataWarehouseContext context)
         {
@@ -31,3 +33,7 @@ namespace CompanySalesAPI.Repositories
 
     }
 }
+
+
+// Tests:
+//What if user requests more users than are in the db for example?

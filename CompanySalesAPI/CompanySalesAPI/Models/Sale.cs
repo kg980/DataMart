@@ -12,13 +12,26 @@ namespace CompanySalesAPI.Models
         [Required]
         public string OrderNumber { get; set; } = string.Empty;     // Unique string
         public int ProductKey { get; set; }
+        
         public int CustomerId { get; set; }
+
+
+
+        // Alternative to manually making CustomerSalesAggregate
+        //[Required]    // loads the entire customer, e.g. for the use case of reading customer dets when getting customer by most sales.
+        public required Customer Customer { get; set; } // navigational property. Customer <one  many> Sales
+        // when do entity framework migration, creates linking table so I dont need to make CustomerSalesAggregate myself
+
+
         public DateTime OrderDate { get; set; }
         public DateTime ShippingDate { get; set; }
         public DateTime DueDate { get; set; }
         public int SalesAmount { get; set; }
         public int Quantity { get; set; }
         public int Price { get; set; }
+
+
+
     }
 }
 

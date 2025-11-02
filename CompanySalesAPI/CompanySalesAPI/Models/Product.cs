@@ -13,15 +13,15 @@ namespace CompanySalesAPI.Models
         public int ProductId { get; set; }
         public int ProductNumber { get; set; }
         //[Required]
-        public string ProductName { get; set; } = string.Empty;
+        public string ProductName { get; set; } = null!; // nullible: null or string.empty => null to prevent false positives of data being 'populated'
         public ProductCategoryId CategoryId { get; set; }
         public ProductCategory Category { get; set; }
         //[Required]
-        public string Subcategory { get; set; } = string.Empty; // Enum mapping not scalable; large number of values, have spaces. Long-term: Create SQL lookup table. Short term: String.
+        public string Subcategory { get; set; } = null!; // Enum mapping not scalable; large number of values, have spaces. Long-term: Create SQL lookup table. Short term: String.
         public bool Maintenance { get; set; } // 'Bool' -> Yes/No in database rather than True/False. Using Converter in DbContext.
         public int Cost { get; set; }
         //[Required]
-        public string ProductLine { get; set; } = string.Empty;
+        public string ProductLine { get; set; } = null!;
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 

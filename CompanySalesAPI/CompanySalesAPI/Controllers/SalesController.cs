@@ -69,3 +69,38 @@ namespace CompanySalesAPI.Controllers
 
     }
 }
+
+
+// Question:
+// if one interface only has one job / one implementation, could i not bypass the interface entirely and directly reference an instance of the class itself?
+
+// ans: Abstraction interfaces (like my gamedev IInteractable) vs other types of interfaces (e.g. contract/capability) e.g. MS's IDisposable interface. Interface handle it idc about implementation
+
+/*
+ ans2: makes testing easier.
+
+e.g. with interface, only need to mock the interface, to test the method, dont have to mock all the dependencies of
+ExpensesService
+
+keeps it a compact unit test =]
+otherwise would have to mock expensesServiec, then because it relies on expensesRepository, you'd have to mock that too, etc etc
+
+interface keep it lean & cleeeean
+
+
+    public class ExpensesControllerTests
+    {
+        private readonly IExpensesService _expensesService;
+        private readonly ExpensesController _expensesController;
+
+        public ExpensesControllerTests()
+        {
+            // Inject dependencies for tests (by Mocking)
+            _expensesService = A.Fake<IExpensesService>();
+
+            // SUT: System Under Test
+            _expensesController = new ExpensesController(_expensesService);
+        }
+
+ */
+

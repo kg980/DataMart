@@ -5,13 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CompanySalesAPI.Repositories
 {
-    public class CustomerRepository : ICustomerRepository
+    public class CustomerRepository(DataWarehouseContext context) : ICustomerRepository
     {
-        private readonly DataWarehouseContext _context;
-        public CustomerRepository(DataWarehouseContext context)
-        {
-            _context = context;
-        }
+        private readonly DataWarehouseContext _context = context;
 
         public async Task<List<Customer>> GetCustomersByIdsAsync(List<int> customerIds)
         {

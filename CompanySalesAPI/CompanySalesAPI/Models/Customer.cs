@@ -21,6 +21,9 @@ namespace CompanySalesAPI.Models
         public Gender Gender { get; set; } // Enum property
         public DateTime BirthDate { get; set; }
         public DateTime CreateDate { get; set; }
+
+
+        public IEnumerable<Sale> Sales { get; set; }
     }
 }
 
