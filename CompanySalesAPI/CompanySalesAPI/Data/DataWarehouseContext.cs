@@ -17,6 +17,9 @@ namespace CompanySalesAPI.Data
         public DbSet<Models.Product> Products { get; set; }
         public DbSet<Models.Sale> Sales { get; set; }
 
+
+
+
         // Question: Is this a standard approach? My reasoning:
         // Centralizing all my Model column name mismatches here with FluentAPI instead of using attributes.
         //      i.e. SalesAmount prop maps to "sales_amount" column in the SQL database.

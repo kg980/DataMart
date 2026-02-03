@@ -22,6 +22,7 @@ namespace CompanySalesAPI.Services
                 Console.WriteLine("No customers found."); // TODO: improve logging
                 return new List<TopCustomerDto>();
             }
+
             // map result to my DTO (need to make an IENumerable, then convert it .ToList() to meet the method return type & make it usable by the API
             // mapping some selection, 's', to some IEnumerable, then converting ToList :) 
             var result = topSales.Select(s => 

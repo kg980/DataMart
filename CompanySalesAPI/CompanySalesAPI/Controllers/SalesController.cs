@@ -21,7 +21,7 @@ namespace CompanySalesAPI.Controllers
         GetTopCustomersBySales
         - Input: optional filters (e.g., country, date range)
         - Output DTO: List of top N customers by sales amount
-        - Purpose: Business insight + aggregation + filterin
+        - Purpose: Business insight + aggregation + filtering
          */
 
 

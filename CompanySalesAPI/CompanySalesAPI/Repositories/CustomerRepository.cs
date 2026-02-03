@@ -1,5 +1,6 @@
 ﻿using CompanySalesAPI.Data;
 using CompanySalesAPI.Models;
+using CompanySalesAPI.Models.DTOs;
 using CompanySalesAPI.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,22 @@ namespace CompanySalesAPI.Repositories
                 .Where(c => customerIds.Contains(c.CustomerId))
                 .ToListAsync();
 
+        }
+
+        public async Task<CustomerProfileDto> GetCustomerProfileAsync(int id)
+        {
+            return await _context.Customers
+                .Where(c => c.CustomerId == id)
+                .Select(c => new CustomerProfileDto
+                {
+                    CustomerId = c.CustomerId,
+                    CustomerNumber = c.CustomerNumber,
+                    FirstName = c.FirstName,
+                    LastName = c.LastName,
+                    FullName = c.FirstName + " " + c.LastName,
+                    Country = c.Country,
+                    MaritalStatus = c.MaritalStatus,
+                });
         }
     }
 }

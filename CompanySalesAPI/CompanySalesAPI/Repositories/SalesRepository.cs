@@ -16,6 +16,9 @@ namespace CompanySalesAPI.Repositories
             _context = context;
         }
 
+        // The constructor can also look like this shorthand:
+        // public SalesRepository(DataWarehouseContext context) => _context = context;
+
         public async Task<List<CustomerSalesAggregate>> GetTopCustomersBySalesAsync(int count)
         {
             return await _context.Sales
