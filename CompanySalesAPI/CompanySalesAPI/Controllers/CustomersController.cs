@@ -33,7 +33,7 @@ namespace CompanySalesAPI.Controllers
         */
 
         [HttpGet("profile/{id:int}")]
-        public async Task<ActionResult<CustomerProfileDto>> GetCustomerProfile([FromRoute] int id)
+        public async Task<ActionResult<CustomerDetailsDto>> GetCustomerProfile([FromRoute] int id)
         {
             var result = await _customerService.GetCustomerProfileAsync(id);
             if (result == null)

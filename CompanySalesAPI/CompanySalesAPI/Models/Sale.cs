@@ -14,13 +14,20 @@ namespace CompanySalesAPI.Models
         public int ProductKey { get; set; }
         
         public int CustomerId { get; set; }
-
+        
 
 
         // Alternative to manually making CustomerSalesAggregate
         //[Required]    // loads the entire customer, e.g. for the use case of reading customer dets when getting customer by most sales.
         public required Customer Customer { get; set; } // navigational property. Customer <one  many> Sales
         // when do entity framework migration, creates linking table so I dont need to make CustomerSalesAggregate myself
+
+        /*If lazy loading or eager loading is configured, you can accidentally:
+        Serialize entire Customer
+        Cause circular references
+        Return massive JSON payloads
+        Trigger N+1 queries
+        -> Better to make a sales dto to return sale data, not return entire sale entity which contains an entire customer entity*/
 
 
         public DateTime OrderDate { get; set; }

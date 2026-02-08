@@ -8,6 +8,6 @@ namespace CompanySalesAPI.Repositories.Interfaces
     {
         Task<List<Customer>> GetCustomersByIdsAsync(List<int> customerIds); // i get a list of ids, and i return their corresponding records.
 
-        Task<CustomerProfileDto> GetCustomerProfileAsync(int customerId);
+        Task<CustomerDetailsDto?> GetCustomerDetailsAsync(int customerId);
     }
 }

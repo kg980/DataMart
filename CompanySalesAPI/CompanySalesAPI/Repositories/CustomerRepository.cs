@@ -18,11 +18,11 @@ namespace CompanySalesAPI.Repositories
 
         }
 
-        public async Task<CustomerProfileDto> GetCustomerProfileAsync(int id)
+        public async Task<CustomerDetailsDto?> GetCustomerDetailsAsync(int id)
         {
             return await _context.Customers
                 .Where(c => c.CustomerId == id)
-                .Select(c => new CustomerProfileDto
+                .Select(c => new CustomerDetailsDto
                 {
                     CustomerId = c.CustomerId,
                     CustomerNumber = c.CustomerNumber,
@@ -31,8 +31,12 @@ namespace CompanySalesAPI.Repositories
                     FullName = c.FirstName + " " + c.LastName,
                     Country = c.Country,
                     MaritalStatus = c.MaritalStatus,
-                });
+                    Gender = c.Gender,
+                    BirthDate = c.BirthDate
+                }).SingleOrDefaultAsync();
         }
+
+
     }
 }
 
@@ -41,3 +45,4 @@ namespace CompanySalesAPI.Repositories
  Question:
 What happens if multiple classes inherit ICustomerRepository. Which implementation will my Service constructor get?
  */
+
