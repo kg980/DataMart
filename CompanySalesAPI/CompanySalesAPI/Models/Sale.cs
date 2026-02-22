@@ -11,10 +11,10 @@ namespace CompanySalesAPI.Models
         //public int Id { get; set; }
         [Required]
         public string OrderNumber { get; set; } = string.Empty;     // Unique string
-        public int ProductKey { get; set; }
-        
+      
         public int CustomerId { get; set; }
-        
+        public long ProductKey { get; set; }
+
 
 
         // Alternative to manually making CustomerSalesAggregate
@@ -28,6 +28,7 @@ namespace CompanySalesAPI.Models
         Return massive JSON payloads
         Trigger N+1 queries
         -> Better to make a sales dto to return sale data, not return entire sale entity which contains an entire customer entity*/
+        public required Product Product { get; set; } // navigational property. Product <one  many> Sales
 
 
         public DateTime OrderDate { get; set; }

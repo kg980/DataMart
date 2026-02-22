@@ -11,7 +11,9 @@ namespace CompanySalesAPI.Repositories.Interfaces
         Task<DateTime?> GetLastOrderDate(int customerId);
         Task<List<SaleDto>> GetSalesForCustomer(int customerId);
         Task<List<CustomerSalesAggregate>> GetTopCustomersBySalesAsync(int count);
-        Task<int> GetTotalSalesForCustomer(int customerId); // check if this is same thing as above?
-        Task<int> GetTotalSpentForCustomer(int customerId);
+        Task<int> GetTotalItemsSoldToCustomer(int customerId); // check if this is same thing as above?
+        Task<decimal> GetTotalSpentForCustomer(int customerId);
+
+        Task<int> GetTotalOrdersCountForCustomer(int customerId); // order can contain many items.
     }
 }

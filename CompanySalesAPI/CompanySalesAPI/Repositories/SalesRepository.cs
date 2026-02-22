@@ -57,15 +57,25 @@ namespace CompanySalesAPI.Repositories
                 .ToListAsync();
         } 
 
-        public async Task<int> GetTotalSalesForCustomer(int customerId)
-        {// get total num of sales for specific customer
+        public async Task<int> GetTotalItemsSoldToCustomer(int customerId)
+        {
             return await _context.Sales
                 .Where(s => s.CustomerId == customerId)
+                .SumAsync(s => s.Quantity);
+        }
+
+        public async Task<int> GetTotalOrdersCountForCustomer(int customerId)
+        {
+            return await _context.Sales
+                .Where(s => s.CustomerId == customerId)
+                .Select(s => s.OrderNumber)
+                .Distinct()
                 .CountAsync();
 
-        } 
+        }
 
-        public async Task<int> GetTotalSpentForCustomer(int customerId)
+
+        public async Task<decimal> GetTotalSpentForCustomer(int customerId)
         {// get total spendings for specific customer
             return await _context.Sales
                 .Where(s => s.CustomerId == customerId)
@@ -97,5 +107,5 @@ namespace CompanySalesAPI.Repositories
 }
 
 
-// Tests:
+// TODO: Tests
 //What if user requests more users than are in the db for example?

@@ -5,11 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CompanySalesAPI.Models
 {
-    [Keyless] // Moved to context Model Builder
     [Table("dim_products", Schema = "gold")]
     public class Product
     {
-        public int ProductKey { get; set; }
+        public long ProductKey { get; set; }
         public int ProductId { get; set; }
         public int ProductNumber { get; set; }
         //[Required]

@@ -4,6 +4,6 @@ namespace CompanySalesAPI.Services.Interfaces
 {
     public interface ICustomerService
     {
-        Task<CustomerDetailsDto?> GetCustomerProfileAsync(int customerId);
+        Task<CustomerProfileDto?> GetCustomerProfileAsync(int customerId);
     }
 }

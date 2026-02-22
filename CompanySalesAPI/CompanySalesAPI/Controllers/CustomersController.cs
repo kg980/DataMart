@@ -16,9 +16,14 @@ namespace CompanySalesAPI.Controllers
             _customerService = customerService;
         }
 
+        //public IActionResult Index() // -> this is for MVC view rendering, not API. For API, we want to return data, not views. Will use this API in another MVC project.
+        //{
+        //    return View();
+        //}
+        [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            return Ok(new { message = "Customers API" });
         }
 
 

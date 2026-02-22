@@ -23,7 +23,9 @@ namespace CompanySalesAPI.Models
         public DateTime CreateDate { get; set; }
 
 
-        public IEnumerable<Sale> Sales { get; set; }
+        //public IEnumerable<Sale>? Sales { get; set; } // EF needs a mutable collection for tracking, IENumerable not good for nav props. using instead:
+        public ICollection<Sale> Sales { get; set; } = new List<Sale>();
+
     }
 }
 

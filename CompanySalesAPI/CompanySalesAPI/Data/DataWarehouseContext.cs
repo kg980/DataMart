@@ -33,9 +33,23 @@ namespace CompanySalesAPI.Data
             base.OnModelCreating(modelBuilder);
 
             // Keyless entities mapped to SQL views (views dont have keys)
-            modelBuilder.Entity<Customer>().HasNoKey();
-            modelBuilder.Entity<Product>().HasNoKey();
-            modelBuilder.Entity<Sale>().HasNoKey();
+            //modelBuilder.Entity<Customer>().HasNoKey();
+            //modelBuilder.Entity<Product>().HasNoKey();
+            //modelBuilder.Entity<Sale>().HasNoKey();
+
+            // For the sake of being able to do more in this project, I'm going to treat this as a relational database and not a pure data warehouse, so I'll add keys to my models and map them to the appropriate columns in the SQL tables. This way I can do more with the data in my API, like updates and deletes, and also have navigation properties between my entities for easier querying.
+            // so I will give keys
+            modelBuilder.Entity<Customer>()
+            .HasKey(c => c.CustomerId);
+
+            modelBuilder.Entity<Product>()
+                .HasKey(p => p.ProductKey);
+
+            //modelBuilder.Entity<Sale>()
+            //    .HasKey(s => s.OrderNumber); -> not unique, someone can order multiple products in one order
+            modelBuilder.Entity<Sale>()
+                .HasKey(s => new { s.OrderNumber, s.ProductKey });
+
 
             // customer mappings
             modelBuilder.Entity<Customer>().Property(c => c.CustomerId).HasColumnName("customer_id");
@@ -63,13 +77,19 @@ namespace CompanySalesAPI.Data
                     v => Enum.Parse<Gender>(v)
                 );
 
-            // one customer -> many sales mapping (new prop in customer model)
+            // Customer -> Sales
             modelBuilder.Entity<Customer>()
                 .HasMany(c => c.Sales)
                 .WithOne(s => s.Customer)
-                .HasForeignKey(c => c.CustomerId);
-                //.OnDelete(DeleteBehavior.Cascade); // link sale w/ customer by id and on delete customer, delete their sales too.
+                .HasForeignKey(s => s.CustomerId)
+                .OnDelete(DeleteBehavior.Restrict);
 
+            // one customer -> many sales mapping (new prop in customer model)
+            //modelBuilder.Entity<Customer>()
+            //    .HasMany(c => c.Sales)
+            //    .WithOne(s => s.Customer)
+            //    .HasForeignKey(c => c.CustomerId);
+            //    //.OnDelete(DeleteBehavior.Cascade); // link sale w/ customer by id and on delete customer, delete their sales too.
 
 
 
@@ -92,6 +112,12 @@ namespace CompanySalesAPI.Data
                     v => v ? "Yes" : "No", // bool → string
                     v => v == "Yes"        // string → bool
                 );
+
+            modelBuilder.Entity<Product>()
+                .HasMany<Sale>()
+                .WithOne(s => s.Product)
+                .HasForeignKey(s => s.ProductKey)
+                .OnDelete(DeleteBehavior.Restrict);
 
             // sale mappings
             modelBuilder.Entity<Sale>().Property(s => s.OrderNumber).HasColumnName("order_number");
